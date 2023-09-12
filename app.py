@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, url_for, redirect
 
 
 app = Flask(__name__)
@@ -9,9 +9,11 @@ def home():
         # Do something
         form_data = request.form
         print(form_data)
-        return render_template('index.html', form_data=form_data)
+        return render_template('index.html',form_data=form_data)
     else:
-        return render_template('index.html', form_data=None)
+        return render_template('index.html',form_data=None)
+        
+
 
 if __name__ == "__main__":
     try:
