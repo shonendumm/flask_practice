@@ -5,7 +5,7 @@
   </head>
   <body>
     <div id="mountNode"></div>
-    {% if form_data != None %}
+    {% if form_data %}
       {% for key,value in form_data.items() %}
     <h2> {{key}}</h2>
     <p> {{value}}</p>

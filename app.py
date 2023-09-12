@@ -11,8 +11,7 @@ def home():
         print(form_data)
         return render_template('index.html', form_data=form_data)
     else:
-        form_data=None
-        return render_template('index.html', form_data=form_data)
+        return render_template('index.html', form_data=None)
 
 if __name__ == "__main__":
     try:
