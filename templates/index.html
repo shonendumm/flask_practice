@@ -1,40 +1,41 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>JSON Processing App</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>JSON Processing App</h1>
-    
+
     <button id="send_button">Send JSON</button>
-    <br>
+    <br />
     <div id="result"></div>
 
     <script>
-        // JavaScript code to send dummy JSON data to the server when the button is clicked
-        document.getElementById("send_button").addEventListener("click", function() {
-            // Create dummy JSON data
-            var dummyData = { "name": "John", "age": 30, "city": "New York" };
+      // JavaScript code to send dummy JSON data to the server when the button is clicked
+      document
+        .getElementById("send_button")
+        .addEventListener("click", async function () {
 
-            // Convert the JSON object to a string
-            var jsonData = JSON.stringify(dummyData);
+            let data = JSON.stringify({
+                name: "John Doe",
+                age: 30,
+                city: "New York",
+            });
 
-            // Send the JSON data to the server
-            sendDataToServer(jsonData);
+          response = await fetch("/api", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: data, // body data type must match "Content-Type" header
+          });
+
+          result = await response.json();
+
+          console.log(result);
         });
 
-        function sendDataToServer(jsonData) {
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "/process_json", true);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    document.getElementById("result").innerHTML = response.message;
-                }
-            };
-            xhr.send(jsonData);
-        }
     </script>
-</body>
+  </body>
 </html>

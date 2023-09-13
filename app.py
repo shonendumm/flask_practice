@@ -6,26 +6,28 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/process_json', methods=['POST'])
+@app.route('/api', methods=['POST'])
 def process_json():
     try:
-        # Get JSON data from the client
-        data = request.get_json()
-        print(data)
-        # Process the JSON data (e.g., perform some calculations)
+        data = request.json
+
+        # Process the JSON data 
         result = process_data(data)
 
         # Create a response JSON
         response = {'message': 'JSON data processed successfully', 'result': result}
-
         return jsonify(response), 200
+    
     except Exception as e:
         error_message = str(e)
         return jsonify({'error': error_message}), 400
 
 def process_data(data):
-    # Replace this with your own data processing logic
-    # For demonstration, we'll simply return the input data as is
+    # Process the JSON data
+    print('name', data.get('name'))
+    print('age', data.get('age'))
+    print('city', data.get('city'))
+
     return data
 
 if __name__ == '__main__':
