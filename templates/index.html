@@ -12,30 +12,46 @@
 
     <script>
       // JavaScript code to send dummy JSON data to the server when the button is clicked
-      document
-        .getElementById("send_button")
-        .addEventListener("click", async function () {
 
+      const sendData = async () => {
+
+        try {
             let data = JSON.stringify({
-                name: "John Doe",
-                age: 30,
-                city: "New York",
-            });
-
-          response = await fetch("/api", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              // 'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: data, // body data type must match "Content-Type" header
-          });
-
-          result = await response.json();
-
-          console.log(result);
+          name: "John Doe",
+          age: 30,
+          city: "New York",
         });
 
+        const response = await fetch("/api", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: data, // body data type must match "Content-Type" header
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        // parses JSON response into JavaScript object
+        const result = await response.json();
+        return result;
+
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+
+      };
+
+      document
+        .getElementById("send_button")
+        .addEventListener("click", async() => {
+            const result = await sendData();
+            console.log(result);
+            document.getElementById("result").innerHTML = JSON.stringify(result);
+            });
     </script>
   </body>
 </html>
