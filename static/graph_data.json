@@ -9,12 +9,23 @@
       "id": "node2",
       "x": 300,
       "y": 200
+    },
+    {
+      "id": "node3",
+      "x": 500,
+      "y": 400
     }
   ],
   "edges": [
     {
       "source": "node1",
-      "target": "node2"
+      "target": "node2",
+      "info": "edge1"
+    },
+    {
+      "source": "node1",
+      "target": "node3",
+      "info": "edge2"
     }
   ]
 }

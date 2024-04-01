@@ -50,7 +50,7 @@
         .getElementById("send_button")
         .addEventListener("click", async () => {
           const result = await sendData();
-          console.log(result);
+          // console.log(result);
           document.getElementById("result").innerHTML = JSON.stringify(result);
         });
     </script>
@@ -68,7 +68,20 @@
           container: "mountNode", // String | HTMLElement, required, the id of DOM element or an HTML node
           width: 800, // Number, required, the width of the graph
           height: 500, // Number, required, the height of the graph
+            modes: {
+                default: ['drag-canvas', 'zoom-canvas', 'drag-node', 'activate-relations'],
+            },
+            
         });
+
+        graph.on('edge:click', (evt) => {
+            const { item } = evt;
+            const link = item.getModel().info;
+            document.getElementById("result").innerHTML = link;
+            // console.log(link);
+        });
+
+
 
         graph.data(graphdata); // Load the data defined in Step 2
         graph.render(); // Render the graph
