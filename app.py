@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import os
+from models import User, db  # Import User model and db from models.py
+
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
@@ -10,10 +12,8 @@ SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = SQLALCHEMY_DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
+db.init_app(app)
 migrate = Migrate(app, db)
-
-from models import *
 
 
 
@@ -21,6 +21,8 @@ from models import *
 @app.route('/')
 def index():
     return render_template('index.html')
+
+
 
 @app.route('/users', methods=['GET'])
 def get_users():
@@ -41,6 +43,7 @@ def create_user():
     else:
         return jsonify({'error': 'Missing username or email in URL parameters'}), 400
 
+# http://localhost:5000/users/create?username=john2&email=john2@example.com
 
 
 
